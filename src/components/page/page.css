@@ -1,0 +1,8 @@
+.slate-editor {
+    height: 100%;
+    padding: 5rem;
+}
+  
+.slate-editor:focus {
+    outline: none;
+}

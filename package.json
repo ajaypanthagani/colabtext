@@ -13,6 +13,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "slate": "^0.112.0",
+    "slate-dom": "^0.112.2",
     "slate-react": "^0.112.1"
   },
   "devDependencies": {
