@@ -105,6 +105,20 @@
     font-size: 1rem;
 }
 
+.shareable-code {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 2px;
+    border: 1px dashed rgb(6, 96, 174);
+    font-style: italic;
+    color: rgb(6, 96, 174);
+}
+
+.shareable-code:hover{
+    border: 1px dashed rgb(6, 96, 174);
+    background-color: rgb(224, 224, 224);
+    color: rgb(6, 96, 174);
+}
+
 @media (max-width: 768px) {
     .modal {
         width: 50%;
@@ -113,4 +127,4 @@
     .modal ul {
         max-height: 150px;
     }
-  }
+}

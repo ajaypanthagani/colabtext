@@ -17,9 +17,14 @@ const RichTextEditor = () => {
     const { apply } = e;
     e.apply = (operation) => {
       if (operation.type === 'set_selection') {
-        Editor.marks(e) && Editor.marks(e)!.bold && Editor.removeMark(e, 'bold');
-        Editor.marks(e) && Editor.marks(e)!.italic && Editor.removeMark(e, 'italic');
-        Editor.marks(e) && Editor.marks(e)!.underline && Editor.removeMark(e, 'underline');
+        const isInSpecial = isInSpecialBlock(e);
+        const isSelectionEmpty = Editor.string(e, e.selection || { anchor: { path: [0, 0], offset: 0 }, focus: { path: [0, 0], offset: 0 } }).length === 0;
+
+        if (isInSpecial || isSelectionEmpty) {
+          Editor.marks(e) && Editor.marks(e)!.bold && Editor.removeMark(e, 'bold');
+          Editor.marks(e) && Editor.marks(e)!.italic && Editor.removeMark(e, 'italic');
+          Editor.marks(e) && Editor.marks(e)!.underline && Editor.removeMark(e, 'underline');
+        }
       }
       apply(operation);
     };
@@ -134,6 +139,31 @@ const RichTextEditor = () => {
     setIsModalOpen(prev => !prev);
   };
 
+  const copyToCpliBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log('Copied to clipboard:', text);
+
+      const copyOfShareableCodePlaceHolder = shareableCodePlaceHolder;
+
+      setShareableCodePlaceHolder('Copied!')
+
+      setTimeout(() => {setShareableCodePlaceHolder(copyOfShareableCodePlaceHolder)}, 1000)
+
+    } catch (err) {
+      console.error('Failed to copy!', err);
+    }
+  }
+
+  const [shareableCode, setShareableCode] = useState<string>('');
+
+  useEffect(() => {
+    const code = 'shareable-code';
+    setShareableCode(code);
+  }, []); // run only once on mount
+
+  const [shareableCodePlaceHolder, setShareableCodePlaceHolder] = useState<string>('Copy code to share!');
+
   return (
     <div className="editor-wrapper">
       <div className="header">
@@ -141,7 +171,7 @@ const RichTextEditor = () => {
           <img className='logo' src="colabtext.png" alt="colabtext" />
         </div>
         <div className="shareable-code-container">
-          <h4 className="shareable-code">shareable-code</h4>
+          <button className="shareable-code" onClick={() => copyToCpliBoard(shareableCode)}>{shareableCodePlaceHolder}</button>
         </div>
         <div className="activity-indicator-container" onClick={toggleModal}>
           <UserBadge username={badges[currentIndex]} />
