@@ -21,3 +21,10 @@
   background-color: #000;
   color: #fff;
 }
+
+@media (max-width: 768px) {
+  .toolbar {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}

@@ -42,3 +42,19 @@
     box-sizing: border-box;
     overflow-y: scroll;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    background-color: white;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.113);
+}
+
+.logo {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 5rem;
+    padding: 5px;
+}

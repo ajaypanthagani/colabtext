@@ -105,6 +105,9 @@ const RichTextEditor = () => {
 
   return (
     <div className="editor-wrapper">
+      <div className="header">
+        <img className='logo' src="colabtext.png" alt="colabtext" />
+      </div>
       <Slate editor={editor} initialValue={initialValue}>
         <div className="toolbar-container flex">
           <div className="toolbar-wrapper flex-justify-center flex-col">
