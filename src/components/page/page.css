@@ -1,8 +1,49 @@
 .slate-editor {
     height: 100%;
     padding: 5rem;
+    line-height: 1.6;
 }
   
 .slate-editor:focus {
     outline: none;
+}
+
+.slate-editor blockquote {
+    border-left: 4px solid #ccc;
+    margin: 1rem 0;
+    padding-left: 1rem;
+    color: #666;
+    font-style: italic;
+}
+
+.slate-editor ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+    margin: 1rem 0;
+}
+
+.slate-editor ol {
+    list-style-type: decimal;
+    padding-left: 2rem;
+    margin: 1rem 0;
+}
+
+.slate-editor li {
+    margin: 0.5rem 0;
+}
+
+.slate-editor [data-align="left"] {
+    text-align: left;
+}
+
+.slate-editor [data-align="center"] {
+    text-align: center;
+}
+
+.slate-editor [data-align="right"] {
+    text-align: right;
+}
+
+.slate-editor [data-align="justify"] {
+    text-align: justify;
 }

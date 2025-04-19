@@ -6,3 +6,11 @@
 .flex-self-center {
   align-self: center;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}

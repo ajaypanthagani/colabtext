@@ -4,8 +4,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.toolbar {
-    padding: 1rem;
+.toolbar-container {
     height: 10vh;
     min-height: 60px;
     background-color: white;
@@ -15,6 +14,11 @@
     top: 0;
     position: sticky;
     margin-top: 0;
+    width: 100%;
+}
+
+.toolbar-wrapper {
+    width: 100%;
 }
 
 .page-container {
