@@ -1,6 +1,7 @@
 .editor-wrapper {
     height: 100vh;
     overflow-y: scroll;
+    background-color: #F8FBFD;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -26,7 +27,6 @@
     flex-direction: column;
     overflow-y: scroll;
     padding: 2rem;
-    background-color: #F8FBFD;
     -webkit-overflow-scrolling: touch;
 }
 
