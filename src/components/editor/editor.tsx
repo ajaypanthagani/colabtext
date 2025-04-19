@@ -82,7 +82,7 @@ const RichTextEditor = () => {
     return !!match;
   };
 
-  const onKeyDown = (event) => {
+  const onKeyDown = (event: { key: string; preventDefault: () => void; }) => {
     if (event.key === "Tab") {
       event.preventDefault();
       editor.insertText("\t");

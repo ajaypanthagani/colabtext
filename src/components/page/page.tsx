@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Slate, Editable, ReactEditor } from 'slate-react';
-import { KeyboardEventHandler, useEffect } from 'react';
+import { useEffect } from 'react';
 import './page.css';
 import { CustomEditor, CustomElement, CustomText } from '../../types/editor';
 
 interface PageProps {
   editor: CustomEditor;
-  onKeyDown: (event)=>void
+  onKeyDown: (event: any)=>void
 }
 
 const Page: React.FC<PageProps> = ({ editor, onKeyDown }) => {
