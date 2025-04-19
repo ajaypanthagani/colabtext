@@ -65,9 +65,16 @@ const RichTextEditor = () => {
     });
 
     if (isActive) {
-      Transforms.setNodes(editor, { type: 'paragraph' } as Partial<CustomElement>);
+      Transforms.setNodes(editor, {
+        type: 'paragraph',
+        data: { align: 'left' }
+      } as Partial<CustomElement>);
     } else {
-      Transforms.setNodes(editor, { type: isList ? 'list-item' : format } as Partial<CustomElement>);
+      Transforms.setNodes(editor, {
+        type: isList ? 'list-item' : format,
+        data: { align: 'left' }
+      } as Partial<CustomElement>);
+
       if (isList) {
         const block = { type: format, children: [] } as CustomElement;
         Transforms.wrapNodes(editor, block);

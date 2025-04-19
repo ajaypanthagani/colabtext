@@ -2,7 +2,10 @@ import { BaseEditor, BaseElement, BaseText } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 export interface CustomElement extends BaseElement {
-  type: 'paragraph' | 'quote' | 'bulleted-list' | 'numbered-list' | 'list-item' | 'align-left' | 'align-center' | 'align-right' | 'justify';
+  type: 'paragraph' | 'quote' | 'bulleted-list' | 'numbered-list' | 'list-item';
+  data?: {
+    align?: 'left' | 'center' | 'right' | 'justify';
+  };
 }
 
 export interface CustomText extends BaseText {
