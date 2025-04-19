@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Page from '../page/page';
 import Toolbar from '../toolbar/toolbar';
+import UserBadge from '../user-badge/user-badge';
 import './editor.css';
 import { createEditor, Editor, Transforms } from 'slate';
 import { withReact, Slate } from 'slate-react';
 import { CustomEditor, CustomElement, CustomText } from '../../types/editor';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const RichTextEditor = () => {
   const [editor] = useState(() => {
@@ -22,6 +25,17 @@ const RichTextEditor = () => {
     };
     return e;
   });
+
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const adjectives = ['Happy', 'Clever', 'Brave', 'Gentle', 'Wise', 'Swift', 'Bright', 'Calm', 'Kind', 'Proud'];
+    const nouns = ['Fox', 'Bear', 'Eagle', 'Wolf', 'Lion', 'Tiger', 'Hawk', 'Owl', 'Deer', 'Horse'];
+    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    const randomNumber = Math.floor(Math.random() * 1000);
+    setUsername(`${randomAdjective}${randomNoun}${randomNumber}`);
+  }, []);
 
   const isInSpecialBlock = (editor: CustomEditor) => {
     const [match] = Editor.nodes(editor, {
@@ -103,10 +117,35 @@ const RichTextEditor = () => {
     },
   ];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const badges = [username]; // or real usernames
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % badges.length);
+    }, 1000); // change every 1 second
+
+    return () => clearInterval(interval);
+  }, [badges.length]);
+
+  const toggleModal = () => {
+    setIsModalOpen(prev => !prev);
+  };
+
   return (
     <div className="editor-wrapper">
       <div className="header">
-        <img className='logo' src="colabtext.png" alt="colabtext" />
+        <div className="logo-container">
+          <img className='logo' src="colabtext.png" alt="colabtext" />
+        </div>
+        <div className="shareable-code-container">
+          <h4 className="shareable-code">shareable-code</h4>
+        </div>
+        <div className="activity-indicator-container" onClick={toggleModal}>
+          <UserBadge username={badges[currentIndex]} />
+        </div>
       </div>
       <Slate editor={editor} initialValue={initialValue}>
         <div className="toolbar-container flex">
@@ -127,6 +166,26 @@ const RichTextEditor = () => {
           </div>
         </div>
       </Slate>
+
+      {isModalOpen && (
+        <div className="modal-backdrop" onClick={toggleModal}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="flex flex-gap-between">
+              <h4>Active Users</h4>
+              <button className='close-modal' onClick={toggleModal}>
+                  <FontAwesomeIcon icon={faClose} />
+              </button>
+            </div>
+            <ul>
+              {badges.map((user, index) => (
+                <li key={index}>
+                  {user}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
