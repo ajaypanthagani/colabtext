@@ -14,5 +14,10 @@
 }
 
 .toolbar-button:hover {
-  border: 1px solid #000000;
+  border: 1px solid #000;
+}
+
+.selected-formatting {
+  background-color: #000;
+  color: #fff;
 }

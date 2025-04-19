@@ -4,7 +4,7 @@ import Page from '../page/page';
 import Toolbar from '../toolbar/toolbar';
 import './editor.css';
 import { createEditor, Editor, Transforms } from 'slate';
-import { withReact } from 'slate-react';
+import { withReact, Slate } from 'slate-react';
 import { CustomEditor, CustomElement, CustomText } from '../../types/editor';
 
 const RichTextEditor = () => {
@@ -89,20 +89,34 @@ const RichTextEditor = () => {
     }
   }
 
+  const initialValue: CustomElement[] = [
+    {
+      type: 'paragraph',
+      children: [{ text: '' }],
+    },
+  ];
+
   return (
     <div className="editor-wrapper">
-      <div className="toolbar-container flex">
-        <div className="toolbar-wrapper flex-justify-center flex-col">
-          <div className="flex-self-center">
-            <Toolbar toggleMark={toggleMark} toggleBlock={toggleBlock} editor={editor} />
+      <Slate editor={editor} initialValue={initialValue}>
+        <div className="toolbar-container flex">
+          <div className="toolbar-wrapper flex-justify-center flex-col">
+            <div className="flex-self-center">
+              <Toolbar 
+                toggleMark={toggleMark} 
+                toggleBlock={toggleBlock} 
+                isMarkActive={isMarkActive}
+                isBlockActive={isBlockActive}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="page-container flex-col">
-        <div className="page flex-self-center">
-          <Page editor={editor} onKeyDown={onKeyDown} />
+        <div className="page-container flex-col">
+          <div className="page flex-self-center">
+            <Page editor={editor} onKeyDown={onKeyDown} />
+          </div>
         </div>
-      </div>
+      </Slate>
     </div>
   );
 };
