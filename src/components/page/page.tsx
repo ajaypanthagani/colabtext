@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Editable, ReactEditor } from 'slate-react';
 import { useEffect } from 'react';
 import './page.css';
