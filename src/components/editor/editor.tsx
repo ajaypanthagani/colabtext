@@ -35,7 +35,7 @@ const RichTextEditor = () => {
 
   const isInSpecialBlock = (editor: CustomEditor) => {
     const [match] = Editor.nodes(editor, {
-      match: n => Editor.isBlock(editor, n) && ['quote'].includes((n as CustomElement).type),
+      match: n => Editor.isBlock(editor, (n as CustomElement)) && ['quote'].includes((n as CustomElement).type),
     });
     return !!match;
   };
@@ -70,7 +70,7 @@ const RichTextEditor = () => {
     }
 
     Transforms.unwrapNodes(editor, {
-      match: n => Editor.isBlock(editor, n) && ['bulleted-list', 'numbered-list', 'list-item', 'quote'].includes((n as CustomElement).type),
+      match: n => Editor.isBlock(editor, (n as CustomElement)) && ['bulleted-list', 'numbered-list', 'list-item', 'quote'].includes((n as CustomElement).type),
       split: true,
     });
 
@@ -94,7 +94,7 @@ const RichTextEditor = () => {
 
   const isBlockActive = (editor: CustomEditor, format: CustomElement['type']) => {
     const [match] = Editor.nodes(editor, {
-      match: (n) => Editor.isBlock(editor, n) && (n as CustomElement).type === format,
+      match: (n) => Editor.isBlock(editor, (n as CustomElement)) && (n as CustomElement).type === format,
     });
     return !!match;
   };
