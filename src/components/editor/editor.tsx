@@ -9,6 +9,8 @@ import { withReact, Slate } from 'slate-react';
 import { CustomEditor, CustomElement, CustomText } from '../../types/editor';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { saveDoc } from '../../services/document/document';
+import { getShareableCode, getUsername } from '../../services/sharing/sharing';
 
 const RichTextEditor = () => {
   const [editor] = useState(() => {
@@ -30,17 +32,6 @@ const RichTextEditor = () => {
     };
     return e;
   });
-
-  const [username, setUsername] = useState('');
-
-  useEffect(() => {
-    const adjectives = ['Happy', 'Clever', 'Brave', 'Gentle', 'Wise', 'Swift', 'Bright', 'Calm', 'Kind', 'Proud'];
-    const nouns = ['Fox', 'Bear', 'Eagle', 'Wolf', 'Lion', 'Tiger', 'Hawk', 'Owl', 'Deer', 'Horse'];
-    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-    const randomNumber = Math.floor(Math.random() * 1000);
-    setUsername(`${randomAdjective}${randomNoun}${randomNumber}`);
-  }, []);
 
   const isInSpecialBlock = (editor: CustomEditor) => {
     const [match] = Editor.nodes(editor, {
@@ -124,7 +115,7 @@ const RichTextEditor = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const badges = [username]; // or real usernames
+  const badges = [getUsername()];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -142,7 +133,6 @@ const RichTextEditor = () => {
   const copyToCpliBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log('Copied to clipboard:', text);
 
       const copyOfShareableCodePlaceHolder = shareableCodePlaceHolder;
 
@@ -155,13 +145,6 @@ const RichTextEditor = () => {
     }
   }
 
-  const [shareableCode, setShareableCode] = useState<string>('');
-
-  useEffect(() => {
-    const code = 'shareable-code';
-    setShareableCode(code);
-  }, []); // run only once on mount
-
   const [shareableCodePlaceHolder, setShareableCodePlaceHolder] = useState<string>('Copy code to share!');
 
   return (
@@ -171,13 +154,16 @@ const RichTextEditor = () => {
           <img className='logo' src="colabtext.png" alt="colabtext" />
         </div>
         <div className="shareable-code-container">
-          <button className="shareable-code" onClick={() => copyToCpliBoard(shareableCode)}>{shareableCodePlaceHolder}</button>
+          <button className="shareable-code" onClick={() => copyToCpliBoard(getShareableCode())}>{shareableCodePlaceHolder}</button>
         </div>
         <div className="activity-indicator-container" onClick={toggleModal}>
           <UserBadge username={badges[currentIndex]} />
         </div>
       </div>
-      <Slate editor={editor} initialValue={initialValue}>
+      <Slate 
+      editor={editor} 
+      initialValue={initialValue}
+      onChange={saveDoc}>
         <div className="toolbar-container flex">
           <div className="toolbar-wrapper flex-justify-center flex-col">
             <div className="flex-self-center">
