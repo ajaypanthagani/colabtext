@@ -1,0 +1,130 @@
+.editor-wrapper {
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: #F8FBFD;
+    -webkit-overflow-scrolling: touch;
+}
+
+.toolbar-container {
+    height: 10vh;
+    min-height: 60px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    flex-shrink: 0;
+    top: 0;
+    position: sticky;
+    margin-top: 0;
+    width: 100%;
+}
+
+.toolbar-wrapper {
+    width: 100%;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding: 2rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.page {
+    max-width: 800px;
+    max-height: 800px;
+    margin-bottom: 3rem;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 5;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    background-color: white;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.113);
+}
+
+.logo {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 5rem;
+    padding: 5px;
+}
+
+.activity-indicator-container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.modal ul {
+    padding-left: 1rem;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.flex-gap-between {
+    justify-content: space-between;
+}
+
+.close-modal {
+    padding: 0;
+    border: none;
+    height: fit-content;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+.shareable-code {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 2px;
+    border: 1px dashed rgb(6, 96, 174);
+    font-style: italic;
+    color: rgb(6, 96, 174);
+}
+
+.shareable-code:hover{
+    border: 1px dashed rgb(6, 96, 174);
+    background-color: rgb(224, 224, 224);
+    color: rgb(6, 96, 174);
+}
+
+@media (max-width: 768px) {
+    .modal {
+        width: 50%;
+    }
+
+    .modal ul {
+        max-height: 150px;
+    }
+}
