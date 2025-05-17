@@ -23,10 +23,19 @@ export const connectToWebSocket = (): WebSocket => {
 
   ws.onopen = () => {
     console.log("WebSocket connected");
+    resetHeartbeat();
+  };
+
+  ws.onmessage = (event) => {
+    console.log("Message from server:", event.data);
+    resetHeartbeat();
   };
 
   ws.onclose = (event) => {
     console.log("WebSocket closed", event.reason);
+    setTimeout(() => {
+      connectToWebSocket();
+    }, 2000);
   };
 
   ws.onerror = (error) => {
@@ -35,6 +44,16 @@ export const connectToWebSocket = (): WebSocket => {
 
   return ws;
 };
+
+let heartbeatTimeout: number | null = null;
+
+function resetHeartbeat() {
+  if (heartbeatTimeout) clearTimeout(heartbeatTimeout);
+  heartbeatTimeout = window.setTimeout(() => {
+    console.warn("No message received for 60s, reconnecting...");
+    ws?.close();
+  }, 60000);
+}
 
 export const writeToWebSocket = (content: string) => {
     if (!ws || ws.readyState == WebSocket.CLOSED || ws.readyState == WebSocket.CLOSING) {
